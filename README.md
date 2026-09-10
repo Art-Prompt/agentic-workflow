@@ -19,3 +19,15 @@ Install dependencies
 ```bash
     pip install -r requirements.txt
 ```
+
+Command for saving newly added dependencies:
+
+```bash
+    pip freeze > requirements.txt
+```
+
+Command for running the server:
+
+```bash
+    uvicorn app.main:app --reload
+```
