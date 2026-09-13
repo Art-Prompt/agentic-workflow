@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
+from app.routes.jira_routes import router as jira_router
+
 app = FastAPI()
 
-@app.get("/")
-def hello_world():
-    return {"message": "Hello World"}
+app.include_router(jira_router)
