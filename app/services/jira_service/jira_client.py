@@ -21,9 +21,6 @@ async def get_issue(issue_key: str):
                 "Accept": "application/json"
             }
         )
-    # For Debugging
-    print("STATUS:", response.status_code)
-    print("RESPONSE:", response.text)
 
     response.raise_for_status()
 
@@ -48,10 +45,6 @@ async def check_issue_permissions(issue_key: str):
         )
 
     response.raise_for_status()
-    
-    # For Debugging
-    print("STATUS:", response.status_code)
-    print("RESPONSE:", response.text)
 
     return response.json()
 
@@ -66,9 +59,6 @@ async def get_current_user():
                 "Accept": "application/json"
             }
         )
-
-    print("STATUS:", response.status_code)
-    print("RESPONSE:", response.text)
 
     response.raise_for_status()
 
