@@ -2,6 +2,12 @@
 
 ## Dev Setup
 
+All commands below are run from inside the `AgenticService` folder:
+
+```bash
+    cd AgenticService
+```
+
 ### Set up python virtual environment
 
 ```bash
@@ -26,11 +32,8 @@ Command for saving newly added dependencies:
     pip freeze > requirements.txt
 ```
 
-Command for running the server (run from the repo root, with the venv activated):
+Command for running the server:
 
-```powershell
-    $env:PYTHONPATH = "."
-    python -m uvicorn AgenticService.app.main:app --reload
+```bash
+    python -m uvicorn app.main:app --reload
 ```
-
-`PYTHONPATH` must be set because `--reload` spawns a subprocess that doesn't inherit the interpreter's `sys.path`, only `PYTHONPATH`.
