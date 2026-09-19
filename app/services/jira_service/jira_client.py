@@ -65,22 +65,17 @@ async def get_current_user():
 
     return response.json()
 
-async def get_ticket_description(issue_key: str):
-    response = await get_issue(issue_key)
-
-    issue_description = response.get("fields", {}).get("description", "")
-    issue_description_content = issue_description.get("content", [])
-
-    description_data = json.loads(json.dumps(issue_description_content))
+def parseIssueDescription(issue_description_content):
+    issue_description_text = ""
     
-    for node in description_data:
+    for node in issue_description_content:
         type = node.get("type", "")
         content = node.get("content", "")
 
         if type == "paragraph" or type == "heading":
             for item in content:
                 item_text = item.get("text", "")
-                print(item_text)
+                issue_description_text += item_text + "\n"
         
         if type == "orderedList":
             for item in content:
@@ -91,8 +86,31 @@ async def get_ticket_description(issue_key: str):
                     for sub_sub_item in sub_item_content:
                         sub_sub_item_text = sub_sub_item.get("text", "")
                         orderedList_bullet_points += sub_sub_item_text
+                
+                    issue_description_text += orderedList_bullet_points + "\n"
                     
-                    print(orderedList_bullet_points)
+        if type == "bulletList":
+            for item in content:
+                item_list = item.get("content", [])
+                for sub_item in item_list:
+                    sub_item_content = sub_item.get("content", [])
+                    bulletList_bullet_points = ""
+                    for sub_sub_item in sub_item_content:
+                        sub_sub_item_text = sub_sub_item.get("text", "")
+                        bulletList_bullet_points += sub_sub_item_text
+                    
+                    issue_description_text += bulletList_bullet_points + "\n"
+
+    return issue_description_text
+
+async def get_ticket_description(issue_key: str):
+    response = await get_issue(issue_key)
+
+    issue_description = response.get("fields", {}).get("description", "")
+    issue_description_content = issue_description.get("content", [])
+
+    description_data = json.loads(json.dumps(issue_description_content))
     
-    # loop through List of Jira ticket Item to generate a prompt for LangGraph Jira AI Agent
-    return issue_description
+    issue_description_text = parseIssueDescription(description_data)
+                        
+    return issue_description_text
