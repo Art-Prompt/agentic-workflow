@@ -2,7 +2,9 @@
 
 ## Dev Setup
 
-### Set up python virtual environment
+### Set up Agentic Service Backend
+
+Go into AgenticService folder and run the following commands:
 
 ```bash
     python -m venv .venv
@@ -30,4 +32,13 @@ Command for running the server:
 
 ```bash
     uvicorn app.main:app --reload
+```
+
+### Set up the UI
+
+Go into UI folder and run:
+
+```bash
+    npm install
+    npm run dev
 ```
