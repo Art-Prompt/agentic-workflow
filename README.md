@@ -28,8 +28,16 @@ Command for saving newly added dependencies:
     pip freeze > requirements.txt
 ```
 
-Have Ollama running locally
-Project use llama3.1:8b model
+Create a .env file in the AgenticService folder with the following variables:
+JIRA_BASE_URL
+JIRA_EMAIL
+JIRA_API_TOKEN
+OLLAMA_MODEL
+
+Have Ollama running locally with the following command, use the
+same name of model as you put in the .env for OLLAMA_MODEL variable.
+
+Example: Using llama3.1:8b
 
 ```bash
     ollama run llama3.1:8b
