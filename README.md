@@ -33,7 +33,6 @@ Project use llama3.1:8b model
 
 ```bash
     ollama run llama3.1:8b
-
 ```
 
 Command for running the server:
