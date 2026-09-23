@@ -1,6 +1,6 @@
 # agentic-workflow
 
-## Dev Setup
+## Local Dev Setup
 
 ### Set up Agentic Service Backend
 
@@ -26,6 +26,14 @@ Command for saving newly added dependencies:
 
 ```bash
     pip freeze > requirements.txt
+```
+
+Have Ollama running locally
+Project use llama3.1:8b model
+
+```bash
+    ollama run llama3.1:8b
+
 ```
 
 Command for running the server:
