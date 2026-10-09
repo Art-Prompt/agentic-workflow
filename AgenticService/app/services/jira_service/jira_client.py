@@ -1,8 +1,9 @@
 import os
-
 import httpx
-from dotenv import load_dotenv
 import json
+
+from dotenv import load_dotenv
+from app.models.jira_ticket_item import JiraTicketItem
 
 load_dotenv()
 
@@ -103,7 +104,12 @@ def parseIssueDescription(issue_description_content):
 
     return issue_description_text
 
-async def get_ticket_description(issue_key: str):
+# TODO: Implement logic to determine the issue type based on the issue description content.
+def getIssueDescription():
+    issue_type = "Story"
+    return issue_type
+
+async def get_ticket_description(issue_key: str) -> JiraTicketItem:
     response = await get_issue(issue_key)
 
     issue_description = response.get("fields", {}).get("description", "")
@@ -112,5 +118,9 @@ async def get_ticket_description(issue_key: str):
     description_data = json.loads(json.dumps(issue_description_content))
     
     issue_description_text = parseIssueDescription(description_data)
+    issue_type = getIssueDescription()
                         
-    return issue_description_text
+    return JiraTicketItem(
+        type=issue_type,
+        description=issue_description_text
+    )
